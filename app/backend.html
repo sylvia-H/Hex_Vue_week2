@@ -1,0 +1,114 @@
+---
+title: 後台 | 第二週 - RESTful API 串接
+layout: ./app/layout.ejs
+engine: ejs
+current: backend
+---
+
+<div id="app2">
+    <div class="container">
+      <div class="row py-3">
+        <div class="col-6">
+          <h2>產品列表</h2>
+          <table class="table table-hover mt-4 text-center">
+            <thead>
+              <tr>
+                <th>
+                  產品名稱
+                </th>
+                <th>
+                  原價
+                </th>
+                <th>
+                  售價
+                </th>
+                <th>
+                  是否啟用
+                </th>
+                <th>
+                  查看細節
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in products" :key="item.id">
+                <td>
+                  {{ item.title }}
+                </td>
+                <td>
+                  {{ item.origin_price }}
+                </td>
+                <td>
+                  {{ item.price }}
+                </td>
+                <td>
+                  <span v-if="item.is_enabled" @click="changeStatus(item.id)"
+                   class="btn btn-success py-2 px-2 rounded">
+                      啟用
+                  </span>
+                  <span v-else @click="changeStatus(item.id)"
+                   class="btn btn-dark py-2 px-2 rounded">
+                      未啟用
+                  </span>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" @click="tempItemInfo = item">
+                        查看細節
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>目前有 <span>{{ products.length }}</span> 項產品</p>
+        </div>
+
+        
+        <div class="col-6">
+            <div v-if="tempItemInfo.id" class="card">
+              <!-- 圖片 -->
+              <div class="row">
+                <div class="col-7 p-4">
+                  <div class="rounded-4 overflow-hidden ratio ratio-3x4">
+                    <img :src="tempItemInfo.imageUrl" class="img-cover" alt="tempItemInfo.title">
+                  </div>
+                </div>
+                <div class="col-5 p-4 d-flex flex-column justify-content-around">
+                  <template v-for="imgSrc in tempItemInfo.imagesUrl">
+                    <div v-if="imgSrc" class="rounded-4 overflow-hidden ratio ratio-4x3">
+                      <img :src="imgSrc" class="img-cover" alt="itemDetail.title" class="img-cover">
+                    </div>
+                  </template>
+                </div>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{ tempItemInfo.title }}
+                  <span class="badge bg-primary ms-2">{{ tempItemInfo.category }}</span>
+                </h5>
+                <p class="card-text">
+                    商品描述：{{ tempItemInfo.description }}
+                </p>
+                <p class="card-text">
+                    商品內容：{{ tempItemInfo.content }}
+                </p>
+                <p class="card-text">
+                    商品價格：{{ tempItemInfo.price }} <span class="text-secondary mx-2"><s>{{ tempItemInfo.origin_price }}</s></span> 元
+                </p>
+              </div>
+            </div>
+
+            
+            <div v-else>
+                <h2 class="mb-6">單一產品細節</h2>
+                <p class="text-secondary">請選擇一個商品查看</p>
+            </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+
+
+</div>
