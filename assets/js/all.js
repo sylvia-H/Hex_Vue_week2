@@ -25,6 +25,12 @@ var app = {
         window.location = './backend.html';
       })["catch"](function (err) {
         console.log(err.response);
+        var errTitle = err.response.data.message;
+        var errMSG = err.response.data.error.message; //登入失敗，sweetalert 跳出提示訊息視窗
+
+        swal("".concat(errTitle, "\uFF01"), errMSG, {
+          icon: "error"
+        });
       });
     }
   }
