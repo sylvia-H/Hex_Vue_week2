@@ -18,6 +18,12 @@ const app = {
             })
             .catch(err => {
                 console.log(err.response);
+                const errTitle = err.response.data.message;
+                const errMSG = err.response.data.error.message;
+                //登入失敗，sweetalert 跳出提示訊息視窗
+                swal(`${errTitle}！`, errMSG, {
+                    icon: "error",
+                });
             })
         }
     }
