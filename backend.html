@@ -85,7 +85,7 @@
                   </div>
                 </div>
                 <div class="col-5 p-4 d-flex flex-column justify-content-around">
-                  <template v-for="imgSrc in tempItemInfo.imagesUrl" :key="i">
+                  <template v-for="(imgUrl,i) in tempItemInfo.imagesUrl" :key="i">
                     <div v-if="imgSrc" class="rounded-4 overflow-hidden ratio ratio-4x3">
                       <img :src="imgSrc" class="img-cover" :alt="tempItemInfo.title" class="img-cover">
                     </div>
